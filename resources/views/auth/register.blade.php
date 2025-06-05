@@ -1,3 +1,6 @@
+<form method="POST" action="{{ route('register') }}">
+    @csrf
+
 @extends('layouts.app')
 
 @section('content')
@@ -156,4 +159,5 @@
         </div>
     </div>
 </div>
+</form>
 @endsection
