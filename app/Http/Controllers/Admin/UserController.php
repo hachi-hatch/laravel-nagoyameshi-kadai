@@ -16,7 +16,7 @@ class UserController extends Controller
             $users = User::where('name', $request->user)->paginate(15);
             $total = $users->total();           
         } elseif ($keyword !== null) {
-            $users = User::where('name', 'like', "%{keyword}%")->paginate(15);
+            $users = User::where('name', 'like', "%{$keyword}%")->paginate(15);
             $total = $users->total(); 
         } else {
             $users = User::paginate(15);
