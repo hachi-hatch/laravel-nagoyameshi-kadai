@@ -101,7 +101,7 @@ class RestaurantController extends Controller
         $restaurant->image = $request->input('image');
         $restaurant->description = $request->input('descripton');
         $restaurant->lowest_price = $request->input('lowest_price');
-        $restaurant->height_price = $request->input('height_price');
+        $restaurant->height_price = $request->input('highest_price');
         $restaurant->postal_code = $request->input('postal_code');
         $restaurant->address = $request->input('address');
         $restaurant->opening_time = $request->input('opening_time');
