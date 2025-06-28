@@ -30,6 +30,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('create', [Admin\RestaurantController::class, 'create'])->name('restaurants.create');
     Route::post('store', [Admin\RestaurantController::class, 'store'])->name('restaurants.store');
     Route::get('edit/{id}', [Admin\RestaurantController::class, 'edit'])->name('restaurants.edit');
-    Route::get('update', [Admin\RestaurantController::class, 'update'])->name('restaurants.update');
+    Route::patch('update', [Admin\RestaurantController::class, 'update'])->name('restaurants.update');
     Route::delete('restaurants/{restaurant}', [Admin\RestaurantController::class, 'destroy'])->name('restaurants.destroy');
 });
