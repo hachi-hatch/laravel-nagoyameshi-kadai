@@ -89,7 +89,7 @@ class RestaurantController extends Controller
             'image'=>'image|max:2048',
             'description'=>'required',
             'lowest_price'=>'required|numeric|min:0|lte:highest_price',
-            'highest_price'=>'required|numeric|min0|gte:lowest_price',
+            'highest_price'=>'required|numeric|min:0|gte:lowest_price',
             'postal_code'=>'required|numeric|digit:7',
             'address'=>'required',
             'opening_time'=>'required|bfore:closing_time',
