@@ -26,9 +26,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('users/{id}', [Admin\UserController::class, 'show'])->name('users.show');
 
     Route::get('restaurants', [Admin\RestaurantController::class, 'index'])->name('restaurants.index');
-    Route::get('restaurants/{id}', [Admin\RestaurantController::class, 'show'])->name('restaurants.show');
     Route::get('restaurants/create', [Admin\RestaurantController::class, 'create'])->name('restaurants.create');
     Route::post('restaurants/store', [Admin\RestaurantController::class, 'store'])->name('restaurants.store');
+    Route::get('restaurants/{id}', [Admin\RestaurantController::class, 'show'])->name('restaurants.show');
     Route::get('restaurants/edit/{id}', [Admin\RestaurantController::class, 'edit'])->name('restaurants.edit');
     Route::get('restaurants/update', [Admin\RestaurantController::class, 'update'])->name('restaurants.update');
     Route::delete('restaurants/{restaurant}', [Admin\RestaurantController::class, 'destroy'])->name('restaurants.destroy');
