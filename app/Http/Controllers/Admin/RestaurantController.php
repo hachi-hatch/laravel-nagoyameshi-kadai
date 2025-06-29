@@ -89,19 +89,19 @@ class RestaurantController extends Controller
             'image'=>'image|max:2048',
             'description'=>'required',
             'lowest_price'=>'required|numeric|min:0|lte:highest_price',
-            'highest_price'=>'required|numeric|min0|gte:lowest_price',
-            'postal_code'=>'required|numeric|digit:7',
+            'highest_price'=>'required|numeric|min:0|gte:lowest_price',
+            'postal_code'=>'required|numeric|digits:7',
             'address'=>'required',
-            'opening_time'=>'required|bfore:closing_time',
+            'opening_time'=>'required|before:closing_time',
             'closing_time'=>'required|after:opening_time',
             'seating_capacity'=>'required|numeric|min:0'
         ]);
 
         $restaurant->name = $request->input('name');
         $restaurant->image = $request->input('image');
-        $restaurant->description = $request->input('descripton');
+        $restaurant->description = $request->input('description');
         $restaurant->lowest_price = $request->input('lowest_price');
-        $restaurant->height_price = $request->input('height_price');
+        $restaurant->highest_price = $request->input('highest_price');
         $restaurant->postal_code = $request->input('postal_code');
         $restaurant->address = $request->input('address');
         $restaurant->opening_time = $request->input('opening_time');
@@ -114,7 +114,7 @@ class RestaurantController extends Controller
             $restaurant->image = basename($image);
         }
 
-        return redirect()->route('admin.restaurants.show')->with('flash_message', '店舗を編集しました。');
+        return redirect()->route('admin.restaurants.show', ['id' => $restaurant->id])->with('flash_message', '店舗を編集しました。');
     }
 
     public function destroy(Restaurant $restaurant)

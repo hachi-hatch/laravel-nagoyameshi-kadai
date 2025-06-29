@@ -26,8 +26,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('users/{id}', [Admin\UserController::class, 'show'])->name('users.show');
 
     Route::get('index', [Admin\RestaurantController::class, 'index'])->name('restaurants.index');
-    Route::get('show/{id}', [Admin\RestaurantController::class, 'show'])->name('restaurants.show');
     Route::get('create', [Admin\RestaurantController::class, 'create'])->name('restaurants.create');
+    Route::get('show/{id}', [Admin\RestaurantController::class, 'show'])->name('restaurants.show');
     Route::post('store', [Admin\RestaurantController::class, 'store'])->name('restaurants.store');
     Route::get('edit/{id}', [Admin\RestaurantController::class, 'edit'])->name('restaurants.edit');
     Route::patch('update', [Admin\RestaurantController::class, 'update'])->name('restaurants.update');
