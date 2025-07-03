@@ -102,15 +102,22 @@ class RestaurantTest extends TestCase
 
         $restaurant = Restaurant::factory()->make();
 
-        $this->actingAs($admin, 'admin');
+        $categories = Category::factory()->count(3)->create();
+        $categoryIds = $categories->pluck('id')->toArray();
 
-        $response = $this->post(route('admin.restaurants.store'), $restaurant->toArray());
-        $response->assertRedirect(route('admin.restaurants.index'));
+        $restaurantData = $restaurant->toArray();
+        $restaurantData['category_ids'] = $categoryIds;
+
+        $response = $this->post(route('admin.restaurants.store'), $restaurantData);
+
+        unset($restaurantData['category_ids']);
 
         $this->assertDatabaseHas('restaurants', [
-        'name' => $restaurant->name,
-        'address' => $restaurant->address,
-    ]);
+            'name' => $restaurantData['name'],
+            'address' => $restaurantData['address'],
+        ]);
+
+        $response->assertRedirect(route('admin.restaurants.index'));
     }
 
     public function test_guest_cannot_accsess_admin_restaurant_edit(): void
@@ -156,9 +163,40 @@ class RestaurantTest extends TestCase
         $admin = Admin::factory()->create([
             'password' => bcrypt('nagoyameshi')
         ]);
+        $this->actingAs($admin, 'admin');
 
-        $response = $this->actingAs($admin)->get('/admin/edit');
-        $response->assertOk();
+        $restaurant = Restaurant::factory()->create();
+        $originalCategories = Category::factory()->count(2)->create();
+        $restaurant->categories()->sync($originalCategories->pluck('id')->toArray());
+
+        $newCategories = Category::factory()->count(3)->create();
+        $newCategoryIds = $newCategories->pluck('id')->toArray();
+
+        $updateData = $restaurant->toArray();
+        $updateData['name'] = '更新された店舗名';
+        $updateData['category_ids'] = $newCategoryIds;
+
+        unset($updateData['category_ids']);
+        $this->assertDatabaseHas('restaurants', [
+            'id' => $restaurant->id,
+            'name' => '更新された店舗名',
+        ]);
+
+        foreach ($newCategoryIds as $categoryId) {
+            $this->assertDatabaseHas('category_restaurant', [
+                'restaurant_id' => $restaurant->id,
+                'category_id' => $categoryId,
+            ]);
+        }
+
+        foreach ($originalCategories->pluck('id') as $oldId) {
+            $this->assertDatabaseMissing('category_restaurant', [
+                'restaurant_id' => $restaurant->id,
+                'category_id' => $oldId,
+            ]);
+        }
+
+        response->assertRedirect(route('admin.restaurants.show', $restaurant));
     }
 
     public function test_guest_cannot_destroy_admin_restaurant_destroy(): void
