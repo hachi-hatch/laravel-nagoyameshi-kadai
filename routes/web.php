@@ -37,4 +37,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::post('categories/store', [Admin\Auth\CategoryController::class, 'store'])->name('categories.store');
     Route::patch('categories/{category}', [Admin\Auth\CategoryController::class, 'update'])->name('categories.update');
     Route::delete('categories/{category}', [Admin\Auth\CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    Route::get('company', [Admin\Auth\CompanyController::class, 'index'])->name('company.index');
+    Route::get('company/edit', [Admin\Auth\CompanyController::class, 'edit'])->name('company.edit');
+    Route::patch('company/{company}', [Admin\Auth\CompanyController::class, 'update'])->name('company.update');
+
+    Route::get('terms', [Admin\TermController::class, 'index'])->name('terms.index');
+    Route::get('terms/edit', [Admin\TermController::class, 'edit'])->name('terms.edit');
+    Route::patch('terms/{term}', [Admin\TermController::class, 'update'])->name('terms.update');
 });
