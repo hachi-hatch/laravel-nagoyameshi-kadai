@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('terms', [Admin\TermController::class, 'index'])->name('terms.index');
     Route::get('terms/edit', [Admin\TermController::class, 'edit'])->name('terms.edit');
     Route::patch('terms/{term}', [Admin\TermController::class, 'update'])->name('terms.update');
+});
+
+Route::group(['middleware' => 'guest:admin'], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 });
