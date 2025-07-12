@@ -58,4 +58,5 @@ Route::group(['middleware' => 'guest:admin'], function () {
     Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
 
     Route::get('restaurants/index', [RestaurantController::class, 'index'])->name('restaurants.index');
+    Route::get('restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
 });
