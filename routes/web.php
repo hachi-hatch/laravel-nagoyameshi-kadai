@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Middleware\Subscribed;
+use App\Http\Middleware\NotSubscribed;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,4 +62,14 @@ Route::group(['middleware' => 'guest:admin'], function () {
 
     Route::get('restaurants/index', [RestaurantController::class, 'index'])->name('restaurants.index');
     Route::get('restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+        Route::get('subscription/edit', [SubscriptionController::class, 'edit'])->middleware([Subscribed::class])->name('subscription.edit');
+        Route::patch('subscription', [SubscriptionController::class, 'update'])->middleware([Subscribed::class])->name('subscription.update');
+        Route::get('subscription/cancel', [SubscriptionController::class, 'cancel'])->middleware([Subscribed::class])->name('subscription.cancel');
+        Route::delete('subscription', [SubscriptionController::class, 'destroy'])->middleware([Subscribed::class])->name('subscription.destroy');
+        
+        Route::get('subscription/create', [SubscriptionController::class, 'create'])->middleware([NotSubscribed::class])->name('subscription.create');
+        Route::post('subscription', [SubscriptionController::class, 'store'])->middleware([NotSubscribed::class])->name('subscription.store');
 });
