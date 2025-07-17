@@ -65,8 +65,8 @@ Route::group(['middleware' => 'guest:admin'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-        Route::get('subscription/edit', [SubscriptionController::class, 'edit'])->middleware([Subscribed::class])->name('subscription.edit');
-        Route::patch('subscription', [SubscriptionController::class, 'update'])->middleware([Subscribed::class])->name('subscription.update');
+        Route::get('subscription/edit', [SubscriptionController::class, 'edit'])->name('subscription.edit');
+        Route::patch('subscription', [SubscriptionController::class, 'update'])->name('subscription.update');
         Route::get('subscription/cancel', [SubscriptionController::class, 'cancel'])->middleware([Subscribed::class])->name('subscription.cancel');
         Route::delete('subscription', [SubscriptionController::class, 'destroy'])->middleware([Subscribed::class])->name('subscription.destroy');
         
