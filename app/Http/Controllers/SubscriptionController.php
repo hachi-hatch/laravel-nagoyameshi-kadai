@@ -44,7 +44,7 @@ class SubscriptionController extends Controller
         $intent = $user->subscription('premium_plan');
 
         if ($intent && $intent->active()) {
-        $intent->cancel();
+        $intent->cancelNow();
         }
 
         return redirect()->route('user.index')->with('flash_message', '有料プランを解約しました。');
