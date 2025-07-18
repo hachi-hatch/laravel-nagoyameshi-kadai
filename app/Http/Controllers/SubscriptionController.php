@@ -41,7 +41,11 @@ class SubscriptionController extends Controller
 
     public function destroy() {
         $user = Auth::user();
-        $intent = $user->subscription('premium_plan')->cancel();
+        $intent = $user->subscription('premium_plan');
+
+        if ($intent && $intent->active()) {
+        $intent->cancel();
+        }
 
         return redirect()->route('user.index')->with('flash_message', '有料プランを解約しました。');
     }
