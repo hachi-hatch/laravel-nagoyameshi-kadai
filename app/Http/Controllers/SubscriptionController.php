@@ -41,21 +41,8 @@ class SubscriptionController extends Controller
 
     public function destroy() {
         $user = Auth::user();
-    Log::info('[解約処理] ユーザーID: ' . $user->id);
+        $intent = $user->subscription('premium_plan')->cancel();
 
-    $subscription = $user->subscription('premium_plan');
-
-    if ($subscription && $subscription->valid()) {
-        $subscription->cancel();
-        Log::info('[解約処理] 解約成功: ' . $subscription->stripe_id);
-    } else {
-        Log::warning('[解約処理] 有効なサブスクリプションが見つかりませんでした。');
-    }
-
-    return redirect()->route('user.index')->with('flash_message', '有料プランを解約しました。');
-        // $user = Auth::user();
-        // $intent = $user->subscription('premium_plan')->cancel();
-
-        // return redirect()->route('user.index')->with('flash_message', '有料プランを解約しました。');
+        return redirect()->route('user.index')->with('flash_message', '有料プランを解約しました。');
     }
 }
