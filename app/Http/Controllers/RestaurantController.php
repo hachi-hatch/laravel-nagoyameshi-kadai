@@ -15,8 +15,9 @@ class RestaurantController extends Controller
         $price = $request->price;
 
         $sorts = [
-            '掲載日が新しい順' => 'created_at desc',
-            '価格が安い順' => 'lowest_price asc'
+        '   掲載日が新しい順' => 'created_at desc',
+            '価格が安い順' => 'lowest_price asc',
+            '評価が高い順' => 'rating desc',
         ];
 
         $sort_query = [];
@@ -50,15 +51,30 @@ class RestaurantController extends Controller
             $query->where('lowest_price', '<=', $price);
         }
 
-        foreach ($sort_query as $column => $direction) {
-            $query->orderBy($column, $direction);
-        }
+        
+        if ($request->has('select_sort')) {
+            $select_sort = $request->input('select_sort');
 
+            if ($select_sort === 'rating desc') {
+                $query->ratingSortable('desc');
+            } else {
+                $slices = explode(' ', $select_sort);
+                if (count($slices) === 2) {
+                $sort_query[$slices[0]] = $slices[1];
+            }
+         }
+
+        $sorted = $select_sort;
+    }
+        
         $restaurants = $query->paginate(15)->appends($request->all());
         $categories = Category::all();
         $total = $restaurants->total();
-
-        return view('restaurants.index', compact('keyword', 'category_id', 'price', 'categories', 'restaurants', 'total', 'sorts', 'sorted'));
+        
+        foreach ($sort_query as $column => $direction) {
+            $query->orderBy($column, $direction);
+        }
+        return view('restaurants.index', compact('keyword', 'category_id', 'price', 'categories', 'restaurants', 'total', 'sorts', 'sorted', 'select_sort'));
     }
 
     public function show($id) {

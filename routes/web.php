@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\Subscribed;
 use App\Http\Middleware\NotSubscribed;
 
@@ -72,4 +73,12 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('subscription/create', [SubscriptionController::class, 'create'])->middleware([NotSubscribed::class])->name('subscription.create');
         Route::post('subscription', [SubscriptionController::class, 'store'])->middleware([NotSubscribed::class])->name('subscription.store');
+
+        Route::get('restaurants/{restaurant}/reviews', [ReviewController::class, 'index'])->name('restaurants.reviews.index');
+        
+        Route::get('restaurants/{restaurant}/reviews/create', [ReviewController::class, 'create'])->middleware([Subscribed::class])->name('restaurants.reviews.create');
+        Route::post('restaurants/{restaurant}/reviews/store', [ReviewController::class, 'store'])->middleware([Subscribed::class])->name('restaurants.reviews.store');
+        Route::get('restaurants/{restaurant}/reviews/{review}/edit', [ReviewController::class, 'edit'])->middleware([Subscribed::class])->name('restaurants.reviews.edit');
+        Route::patch('restaurants/{restaurant}/reviews/update/{review}', [ReviewController::class, 'update'])->middleware([Subscribed::class])->name('restaurants.reviews.update');
+        Route::delete('restaurants/{restaurant}/reviews/destroy/{review}', [ReviewController::class, 'destroy'])->middleware([Subscribed::class])->name('restaurants.reviews.destroy');
 });
