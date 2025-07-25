@@ -75,7 +75,7 @@ class ReviewController extends Controller
 
     public function destroy(Request $request, Restaurant $restaurant, Review $reviews) {
         if ($reviews->user_id !== Auth::id()) {
-            return redirect()->route('reviews.index')->with('error_message', '不正なアクセスです。');
+            return redirect()->route('restaurants.reviews.index', $restaurant)->with('error_message', '不正なアクセスです。');
         }
 
         $reviews->delete();
