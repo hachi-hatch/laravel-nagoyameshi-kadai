@@ -45,7 +45,7 @@ class ReviewController extends Controller
         $reviews->user_id = Auth::user()->id;
         $reviews->save();
 
-        return redirect()->route('reviews.index')->with('flash_message', 'レビューを投稿しました。');
+        return redirect()->route('restaurant.reviews.index')->with('flash_message', 'レビューを投稿しました。');
     }
 
     public function edit(Restaurant $restaurant, Reviews $reviews) {
