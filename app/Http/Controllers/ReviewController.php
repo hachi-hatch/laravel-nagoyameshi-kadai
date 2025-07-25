@@ -39,9 +39,9 @@ class ReviewController extends Controller
         ]);
 
         $reviews = new Review();
-        $reviews->restaurant_id = $request->id;
+        $reviews->restaurant_id = $restaurant->id;
         $reviews->score = $request->input('score');
-        $reviews->content = $request->input('contet');       
+        $reviews->content = $request->input('content');       
         $reviews->user_id = Auth::user()->id;
         $reviews->save();
 
