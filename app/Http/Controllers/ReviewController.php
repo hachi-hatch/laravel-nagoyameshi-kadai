@@ -25,11 +25,11 @@ class ReviewController extends Controller
                         ->get();
         }
 
-        return view('restaurants.reviews.index', compact('restaurant','reviews', 'user'));
+        return view('reviews.index', compact('restaurant','reviews', 'user'));
     }
 
     public function create(Restaurant $restaurant) {
-        return view('restaurants.reviews.create', compact('restaurant'));
+        return view('reviews.create', compact('restaurant'));
     }
 
     public function store(Request $request, Restaurant $restaurant) {
