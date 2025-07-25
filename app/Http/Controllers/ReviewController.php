@@ -50,7 +50,7 @@ class ReviewController extends Controller
 
     public function edit(Restaurant $restaurant, Review $reviews) {
         if ($reviews->user_id !== Auth::id()) {
-            return redirect()->route('reviews.index')->with('error_message', '不正なアクセスです。');
+            return redirect()->route('restaurants.reviews.index')->with('error_message', '不正なアクセスです。');
         }
 
         return view('reviews.edit', compact('restaurant', 'reviews'));
