@@ -39,7 +39,7 @@ class ReviewController extends Controller
         ]);
 
         $reviews = new Review();
-        $reviews->restaurant_id = Reataurant::where->id();
+        $reviews->restaurant_id = Restaurant::where->id();
         $reviews->score = $request->input('score');
         $reviews->content = $request->input('contetn');       
         $reviews->user_id = Auth::user()->id;
