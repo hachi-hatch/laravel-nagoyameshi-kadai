@@ -25,11 +25,11 @@ class ReviewController extends Controller
                         ->get();
         }
 
-        return view('reviews.index', compact('restaurant','reviews', 'user'));
+        return view('restaurant.reviews.index', compact('restaurant','reviews', 'user'));
     }
 
     public function create(Restaurant $restaurant) {
-        return view('reviews.create', compact('restaurant'));
+        return view('restaurant.reviews.create', compact('restaurant'));
     }
 
     public function store(Request $request, Restaurant $restaurant) {
@@ -48,7 +48,7 @@ class ReviewController extends Controller
         return redirect()->route('restaurants.reviews.index')->with('flash_message', 'レビューを投稿しました。');
     }
 
-    public function edit(Restaurant $restaurant, Reviews $reviews) {
+    public function edit(Restaurant $restaurant, Review $reviews) {
         if ($reviews->user_id !== Auth::id()) {
             return redirect()->route('restaurants.reviews.index')->with('error_message', '不正なアクセスです。');
         }
@@ -56,7 +56,7 @@ class ReviewController extends Controller
         return view('restaurants.reviews.edit', compact('restaurant', 'reviews'));
     }
 
-    public function update(Request $request, Reviews $reviews) {
+    public function update(Request $request, Review $reviews) {
         $request->validate([
             'score'=>'required|integer|between:1,5',
             'content'=>'required'
