@@ -45,15 +45,15 @@ class ReviewController extends Controller
         $reviews->user_id = Auth::user()->id;
         $reviews->save();
 
-        return redirect()->route('restaurants.reviews.index')->with('flash_message', 'レビューを投稿しました。');
+        return redirect()->route('reviews.index')->with('flash_message', 'レビューを投稿しました。');
     }
 
     public function edit(Restaurant $restaurant, Review $reviews) {
         if ($reviews->user_id !== Auth::id()) {
-            return redirect()->route('restaurants.reviews.index')->with('error_message', '不正なアクセスです。');
+            return redirect()->route('reviews.index')->with('error_message', '不正なアクセスです。');
         }
 
-        return view('restaurants.reviews.edit', compact('restaurant', 'reviews'));
+        return view('reviews.edit', compact('restaurant', 'reviews'));
     }
 
     public function update(Request $request, Review $reviews) {
@@ -63,23 +63,23 @@ class ReviewController extends Controller
         ]);
 
         if ($reviews->user_id !== Auth::id()) {
-            return redirect()->route('restaurants.reviews.index')->with('error_message', '不正なアクセスです。');
+            return redirect()->route('reviews.index')->with('error_message', '不正なアクセスです。');
         }
 
         $reviews->score = $request->input('score');
         $reviews->content = $request->input('contetn');
         $reviews->save();
 
-        return redirect()->route('restaurants.reviews.index')->with('flash_message', 'レビューを編集しました。');
+        return redirect()->route('reviews.index')->with('flash_message', 'レビューを編集しました。');
     }
 
     public function destroy(Request $request, Review $reviews) {
         if ($reviews->user_id !== Auth::id()) {
-            return redirect()->route('restaurants.reviews.index')->with('error_message', '不正なアクセスです。');
+            return redirect()->route('reviews.index')->with('error_message', '不正なアクセスです。');
         }
 
         $reviews->delete();
 
-        return redirect()->route('restaurants.reviews.index')->with('flash_message', 'レビューを削除しました。');
+        return redirect()->route('reviews.index')->with('flash_message', 'レビューを削除しました。');
     }
 }
