@@ -22,6 +22,7 @@ class RestaurantController extends Controller
 
         $sort_query = [];
         $sorted = "created_at desc";
+        $select_sort = null;
 
         $query = Restaurant::query();
 
