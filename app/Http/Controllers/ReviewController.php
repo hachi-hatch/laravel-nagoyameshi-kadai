@@ -32,16 +32,16 @@ class ReviewController extends Controller
         return view('reviews.create', compact('restaurant'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request, Restaurant $restaurant) {
         $request->validate([
             'score'=>'required|integer|between:1,5',
             'content'=>'required'
         ]);
 
         $reviews = new Review();
-        $reviews->restaurant_id = Restaurant::where->id();
+        $reviews->restaurant_id = $request->input('restaurant_id');
         $reviews->score = $request->input('score');
-        $reviews->content = $request->input('contetn');       
+        $reviews->content = $request->input('contet');       
         $reviews->user_id = Auth::user()->id;
         $reviews->save();
 
