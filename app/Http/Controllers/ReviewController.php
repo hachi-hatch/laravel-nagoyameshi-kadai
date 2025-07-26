@@ -13,21 +13,16 @@ class ReviewController extends Controller
         $user = Auth::user();
 
         if ($user->subscribed('premium_plan')) {
-            $reviews = Review::where('restaurant_id', $restaurant->id)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(5);
+            $reviews = Review::with('restaurant')
+            ->where('restaurant_id', $restaurant->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         } else {
             $reviews = Review::where('restaurant_id', $restaurant->id)
                         ->orderBy('created_at', 'desc')
                         ->take(3)
                         ->get();
         }
-
-        \Log::info('Reviews with restaurants', $reviews->map(fn($r) => [
-        'id' => $r->id,
-        'restaurant_id' => $r->restaurant_id,
-        'restaurant_name' => $r->restaurant?->name,
-    ]))->toArray();
 
         return view('reviews.index', compact('restaurant','reviews', 'user'));
     }
