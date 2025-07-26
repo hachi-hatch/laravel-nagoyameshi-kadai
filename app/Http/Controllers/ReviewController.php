@@ -27,7 +27,7 @@ class ReviewController extends Controller
         'id' => $r->id,
         'restaurant_id' => $r->restaurant_id,
         'restaurant_name' => $r->restaurant?->name,
-    ]));
+    ]))->toArray();
 
         return view('reviews.index', compact('restaurant','reviews', 'user'));
     }
