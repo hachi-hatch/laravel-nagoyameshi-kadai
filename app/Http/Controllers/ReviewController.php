@@ -10,8 +10,6 @@ use App\Models\Review;
 class ReviewController extends Controller
 {
     public function index(Restaurant $restaurant) {
-        //$reviews = Review::all();
-
         $user = Auth::user();
 
         if ($user->subscribed('premium_plan')) {

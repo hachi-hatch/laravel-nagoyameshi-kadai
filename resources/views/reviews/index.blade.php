@@ -35,7 +35,7 @@
                         <li class="breadcrumb-item active" aria-current="page">レビュー</li>
                     </ol>
                 </nav>
-
+                @dd($restaurant)
                 <h1 class="mb-2 text-center">{{ $restaurant->name }}</h1>
                 <p class="text-center">
                     <span class="nagoyameshi-star-rating me-1" data-rate="{{ round($restaurant->reviews->avg('score') * 2) / 2 }}"></span>
