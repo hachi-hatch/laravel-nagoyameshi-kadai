@@ -13,10 +13,9 @@ class ReviewController extends Controller
         $user = Auth::user();
 
         if ($user->subscribed('premium_plan')) {
-            $reviews = Review::with('restaurant')
-            ->where('restaurant_id', $restaurant->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+            $reviews = Review::where('restaurant_id', $restaurant->id)
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(5);
         } else {
             $reviews = Review::where('restaurant_id', $restaurant->id)
                         ->orderBy('created_at', 'desc')
