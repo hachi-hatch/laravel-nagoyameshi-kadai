@@ -10,7 +10,7 @@ use App\Models\Review;
 class ReviewController extends Controller
 {
     public function index(Restaurant $restaurant) {
-        $reviews = Review::all();
+        //$reviews = Review::all();
 
         $user = Auth::user();
 
