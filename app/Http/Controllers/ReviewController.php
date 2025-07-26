@@ -23,6 +23,12 @@ class ReviewController extends Controller
                         ->get();
         }
 
+        \Log::info('Reviews with restaurants', $reviews->map(fn($r) => [
+        'id' => $r->id,
+        'restaurant_id' => $r->restaurant_id,
+        'restaurant_name' => $r->restaurant?->name,
+    ]));
+
         return view('reviews.index', compact('restaurant','reviews', 'user'));
     }
 
