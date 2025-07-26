@@ -80,5 +80,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('restaurants/{restaurant}/reviews/store', [ReviewController::class, 'store'])->middleware([Subscribed::class])->name('restaurants.reviews.store');
         Route::get('restaurants/{restaurant}/reviews/{review}/edit', [ReviewController::class, 'edit'])->middleware([Subscribed::class])->name('restaurants.reviews.edit');
         Route::patch('restaurants/{restaurant}/reviews/update/{review}', [ReviewController::class, 'update'])->middleware([Subscribed::class])->name('restaurants.reviews.update');
-        Route::delete('restaurants/{restaurant}/reviews/destroy/{review}', [ReviewController::class, 'destroy'])->middleware([Subscribed::class])->name('restaurants.reviews.destroy');
+        Route::delete('restaurants/{restaurant}/reviews/{review}', [ReviewController::class, 'destroy'])->middleware([Subscribed::class])->name('restaurants.reviews.destroy');
 });

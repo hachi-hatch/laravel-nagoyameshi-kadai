@@ -42,10 +42,10 @@ class ReviewController extends Controller
         $reviews->restaurant_id = $restaurant->id;
         $reviews->score = $request->input('score');
         $reviews->content = $request->input('content');       
-        $reviews->user_id = Auth::user()->id;
+        $reviews->user_id = Auth::id();
         $reviews->save();
 
-        return redirect()->route('reviews.index')->with('flash_message', 'レビューを投稿しました。');
+        return redirect()->route('restaurants.reviews.index', $restaurant)->with('flash_message', 'レビューを投稿しました。');
     }
 
     public function edit(Restaurant $restaurant, Review $reviews) {
@@ -73,12 +73,12 @@ class ReviewController extends Controller
         return redirect()->route('restaurants.reviews.index', $restaurant)->with('flash_message', 'レビューを編集しました。');
     }
 
-    public function destroy(Request $request, Restaurant $restaurant, Review $reviews) {
-        if ($reviews->user_id !== Auth::id()) {
+    public function destroy(Request $request, Restaurant $restaurant, Review $review) {
+        if ($review->user_id !== Auth::id()) {
             return redirect()->route('restaurants.reviews.index', $restaurant)->with('error_message', '不正なアクセスです。');
         }
 
-        $reviews->delete();
+        $review->delete();
 
         return redirect()->route('restaurants.reviews.index', $restaurant)->with('flash_message', 'レビューを削除しました。');
     }
