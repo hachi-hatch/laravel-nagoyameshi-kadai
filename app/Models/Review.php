@@ -13,12 +13,7 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function restauturant() {
+    public function restaurant() {
         return $this->belongsTo(Restaurant::class);
-    }
-
-    public function scopeRatingSortable($query, $direction = 'desc') {
-        return $query->withAvg('reviews', 'score')
-                 ->orderBy('reviews_avg_score', $direction);
     }
 }
