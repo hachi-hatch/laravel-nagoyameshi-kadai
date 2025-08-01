@@ -22,7 +22,7 @@ class ReviewController extends Controller
                         ->take(3)
                         ->get();
         }
-
+        dd($reviews);
         return view('reviews.index', compact('restaurant','reviews', 'user'));
     }
 

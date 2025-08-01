@@ -26,4 +26,13 @@ class Restaurant extends Model
         return $query->withAvg('reviews', 'score')
                  ->orderBy('reviews_avg_score', $direction);
     }
+
+    public function reservations() {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function popularSortable($query, $direction = 'desc') {
+        return $query->withCount('reviewsreservations', 'count')
+                 ->orderBy('reservations_count', $direction);
+    }
 }
