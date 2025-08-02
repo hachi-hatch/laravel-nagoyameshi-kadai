@@ -8,6 +8,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Middleware\Subscribed;
 use App\Http\Middleware\NotSubscribed;
 
@@ -87,4 +88,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('restaurants/{restaurant}/reservations/create', [ReservationController::class, 'create'])->middleware([Subscribed::class])->name('restaurants.reservations.create');
         Route::post('restaurants/{restaurant}/reservations', [ReservationController::class, 'store'])->middleware([Subscribed::class])->name('restaurants.reservations.store');
         Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->middleware([Subscribed::class])->name('reservations.destroy');
-});
+
+        Route::get('restaurants/favorites/index', [FavoriteController::class, 'index'])->middleware([Subscribed::class])->name('favorites.index');
+        Route::post('restaurants/favorites/{restaurant_id}', [FavoriteController::class, 'store'])->middleware([Subscribed::class])->name('favorites.store');
+        Route::delete('restaurants/favorites/{restaurant_id}', [FavoriteController::class, 'destroy'])->middleware([Subscribed::class])->name('favorites.destroy');
+    });
