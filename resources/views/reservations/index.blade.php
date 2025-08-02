@@ -14,7 +14,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('restaurants.reservations.destroy') }}" method="post" name="cancelReservationForm">
+                    <form method="post" name="cancelReservationForm">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn-danger">削除</button>

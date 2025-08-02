@@ -86,5 +86,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('restaurants/reservations/index', [ReservationController::class, 'index'])->middleware([Subscribed::class])->name('reservations.index');
         Route::get('restaurants/{restaurant}/reservations/create', [ReservationController::class, 'create'])->middleware([Subscribed::class])->name('restaurants.reservations.create');
         Route::post('restaurants/{restaurant}/reservations', [ReservationController::class, 'store'])->middleware([Subscribed::class])->name('restaurants.reservations.store');
-        Route::delete('restaurants/reservations/{reservation}', [ReservationController::class, 'destroy'])->middleware([Subscribed::class])->name('restaurants.reservations.destroy');
+        Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->middleware([Subscribed::class])->name('reservations.destroy');
 });
