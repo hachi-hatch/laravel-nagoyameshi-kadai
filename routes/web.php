@@ -9,6 +9,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\TermController;
 use App\Http\Middleware\Subscribed;
 use App\Http\Middleware\NotSubscribed;
 
@@ -65,6 +67,9 @@ Route::group(['middleware' => 'guest:admin'], function () {
 
     Route::get('restaurants/index', [RestaurantController::class, 'index'])->name('restaurants.index');
     Route::get('restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
+
+    Route::get('company/index',[CompanyController::class, 'index'])->name('company.index');
+    Route::get('terms/index',[TermController::class, 'index'])->name('terms.index');
 });
 
 Route::group(['middleware' => 'auth'], function () {
