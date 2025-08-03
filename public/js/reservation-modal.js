@@ -10,6 +10,6 @@ document.getElementById('cancelReservationModal').addEventListener('show.bs.moda
     let reservationId = cancelButton.dataset.reservationId;
     let restaurantName = cancelButton.dataset.restaurantName;
 
-    cancelReservationForm.action = `${location.origin}/laravel-nagoyameshi/public/reservations/${reservationId}`;
+    cancelReservationForm.action = `${location.origin}/reservations/${reservationId}`;
     cancelMessage.textContent = `「${restaurantName}」の予約をキャンセルしてもよろしいですか？`
 });
