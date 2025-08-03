@@ -10,6 +10,6 @@ document.getElementById('removeFavoriteModal').addEventListener('show.bs.modal',
     let restaurantId = removeButton.dataset.restaurantId;
     let restaurantName = removeButton.dataset.restaurantName;
 
-    removeFavoriteForm.action = `${location.origin}/laravel-nagoyameshi/public/restaurants/favorites/${restaurantId}`;
+    removeFavoriteForm.action = `${location.origin}/restaurants/favorites/${restaurantId}`;
     removeMessage.textContent = `「${restaurantName}」のお気に入りを解除してもよろしいですか？`
 });
