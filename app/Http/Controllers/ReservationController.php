@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\Restaurant;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -35,10 +36,19 @@ class ReservationController extends Controller
 
         $date = $request->input('reservation_date');
         $time = $request->input('reservation_time');
+        $reserved_datetime = $date . ' ' . $time;
+
+        $reservedDateTime = Carbon::createFromFormat('Y-m-d H:i', "$date $time");
+
+        $now = Carbon::now();
+
+        if ($reservedDateTime->lessThanOrEqualTo($now)) {
+            return back()->withErrors(['reservation_time' => '過去の時間には予約できません。'])->withInput();
+        }
 
         $reservation = new Reservation();
         $reservation->restaurant_id = $restaurant->id;
-        $reservation->reserved_datetime = $date . ' ' . $time;
+        $reservation->reserved_datetime = $reserved_datetime;
         $reservation->number_of_people = $request->input('number_of_people');
         $reservation->user_id = Auth::id();
         $reservation->save();
