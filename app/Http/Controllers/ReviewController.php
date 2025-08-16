@@ -48,8 +48,8 @@ class ReviewController extends Controller
         return redirect()->route('reviews.index')->with('flash_message', 'レビューを投稿しました。');
     }
 
-    public function edit(Restaurant $restaurant, Reviews $reviews) {
-        if ($reviews->user_id !== Auth::id()) {
+    public function edit(Restaurant $restaurant, Reviews $review) {
+        if ($review->user_id !== Auth::id()) {
             return redirect()->route('reviews.index')->with('error_message', '不正なアクセスです。');
         }
 
